@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>login page</title>
+	<link rel="stylesheet" type="text/css" href="login.css">
+</head>
+<body>
+	<div class="container">
+        <form id="login-form" onsubmit="return validateForm()">
+        	<h1>Login</h1>
+            <div id="error-message" class="error"></div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+            <a>Forget password</a>
+        </form>
+    </div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        // A function to validate the user input and hash the password
+        function validateForm() {
+            // Get the user input from the form
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Get the error message element
+            var errorMessage = document.getElementById("error-message");
+
+            // Clear any previous error message
+            errorMessage.innerHTML = "";
+
+            // Check if the username is empty
+            if (username == "") {
+                // Display an error message
+                errorMessage.innerHTML = "Please enter a username.";
+                // Stop the form submission
+                return false;
+            }
+
+            // Check if the password is empty
+            if (password == "") {
+                // Display an error message
+                errorMessage.innerHTML = "Please enter a password.";
+                // Stop the form submission
+                return false;
+            }
+
+            // Hash the password using SHA-256 algorithm
+            var hashedPassword = CryptoJS.SHA256(password);
+
+            // Display the hashed password for demonstration purposes
+            alert("The hashed password is " + hashedPassword);
+
+            // Proceed with the form submission
+            return true;
+        }
+    </script>
+</body>
+</html>
